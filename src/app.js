@@ -9,12 +9,10 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 
-const authRoutes = require('./auth/auth.routes');
+const authRoutes = require('./routes/auth.routes');
 app.use('/auth', authRoutes);
 
-
-// Importar rutas
-const userRoutes = require("./routes/user.routes");
-app.use("/api/users", userRoutes);
+const shiftRoutes = require('./routes/shift.routes');
+app.use('/shift', shiftRoutes);
 
 module.exports = app;

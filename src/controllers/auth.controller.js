@@ -1,6 +1,7 @@
 // auth/auth.controller.js
-const { registerUser, loginUser, verifyToken } = require('./auth.service');
+const { registerUser, loginUser, verifyToken } = require('../services/auth.service');
 
+//Registrar usuario y guardarlo en la bd
 async function register(req, res) {
   const { email, password } = req.body;
   try {
@@ -11,6 +12,7 @@ async function register(req, res) {
   }
 }
 
+//Iniciar sesión y generar un token
 async function login(req, res) {
   const { email, password } = req.body;
   try {
