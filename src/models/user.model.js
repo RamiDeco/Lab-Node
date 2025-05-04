@@ -1,29 +1,23 @@
-const connection = require('../config/db');
+import connection from '../config/db.js';
 
 const Usuario = {
-  getAll: (callback) => {
-    connection.query('SELECT * FROM usuario', (err, resultados) => {
-      if (err) {
-        callback(err, null);
-      } else {
-        callback(null, resultados);
-      }
-    });
+  getAll: async () => {
+    try {
+      const [users] = await connection.query('SELECT * FROM usuario');
+      return users;
+    } catch (err) {
+      console.error('Error al obtener los usuarios:', err);
+    }
   },
 
-  getByEmail: (email) => {
-    return new Promise((resolve, reject) => {
-      connection.query(
-        'SELECT * FROM usuario WHERE email = ?',
-        [email],
-        (err, resultado) => {
-          if (err) {
-            return reject(err);
-          }
-          resolve(resultado[0]); // puede ser undefined si no encuentra nada
-        }
-      );
-    });
+  getByEmail: async (email) => {
+    try {
+      const result = await connection.execute( 'SELECT * FROM usuario WHERE email = ?', [email] );
+      if (result[0].length === 0) return null;
+      return result[0][0];
+    } catch (err) {
+      console.error('Error al obtener el usuario por email:', err);
+    }
   },
 
   addUser: (email, password) => {
@@ -37,16 +31,6 @@ const Usuario = {
       }
     });
   }
-
-  //   agregar: (nombre, callback) => {
-  //     connection.query('INSERT INTO usuario (nombre) VALUES (?)', [nombre], (err, resultado) => {
-  //       if (err) {
-  //         callback(err, null);
-  //       } else {
-  //         callback(null, { id: resultado.insertId, nombre });
-  //       }
-  //     });
-  //   }
 };
 
-module.exports = Usuario;
+export default Usuario;

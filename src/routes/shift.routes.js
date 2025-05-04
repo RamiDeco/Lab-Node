@@ -1,11 +1,11 @@
 // auth/auth.routes.js
-const express = require('express');
+import express from 'express';
+import {createShift, getAllShifts, getShiftById} from '../controllers/shift.controller.js';
+
 const router = express.Router();
-const shiftController = require('../controllers/shift.controller');
 
-router.post('/create', shiftController.createShift);
-router.get('/shifts', shiftController.getAllShifts);
-router.post('/shift', shiftController.getShiftById);
+router.post('/create', createShift);
+router.get('/shifts', getAllShifts);
+router.post('/shift', getShiftById);
 
-
-module.exports = router;
+export default router;
