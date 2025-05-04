@@ -1,18 +1,26 @@
-const express = require("express");
-const cors = require("cors");
-const cookieParser = require('cookie-parser');
+import express from 'express';
+import http from 'http';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import { initDB } from './initDB.js';
+import authRoutes from './routes/auth.routes.js';
+import shiftRoutes from './routes/shift.routes.js';
+const { pathname: root } = new URL('../', import.meta.url)
 
 const app = express();
+const server = http.createServer(app);
 
 // Middleware
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 
-const authRoutes = require('./routes/auth.routes');
+await initDB();
+
 app.use('/auth', authRoutes);
-
-const shiftRoutes = require('./routes/shift.routes');
 app.use('/shift', shiftRoutes);
+app.get('/', (req, res) => {
+    res.sendFile(root + '/index.html');
+} )
 
-module.exports = app;
+export default server;
