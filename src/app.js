@@ -5,6 +5,8 @@ import cookieParser from 'cookie-parser';
 import { initDB } from './initDB.js';
 import authRoutes from './routes/auth.routes.js';
 import shiftRoutes from './routes/shift.routes.js';
+import exproutes from './routes/experiment.routes.js'
+import turnoEstadoRoutes from './routes/turnoEstado.routes.js';
 const { pathname: root } = new URL('../', import.meta.url)
 
 const app = express();
@@ -19,6 +21,8 @@ await initDB();
 
 app.use('/auth', authRoutes);
 app.use('/shift', shiftRoutes);
+app.use('/exp', exproutes);
+app.use('/turno-estado', turnoEstadoRoutes);
 app.get('/', (req, res) => {
     res.sendFile(root + '/index.html');
 } )

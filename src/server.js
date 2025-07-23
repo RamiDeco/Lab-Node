@@ -1,21 +1,35 @@
 import 'dotenv/config';
 import server from './app.js';
-import {Server} from 'socket.io';
-
-const PORT = process.env.PORT || 3000;
+import { Server } from 'socket.io';
+import {socketConnection} from './socket.handler.js'
+import { initDatabase } from './config/init-database.js';
 
 //WebSocket
 const io = new Server(server, {
-    cors: {
+  cors: {
       origin: 'http://localhost:3000', // o donde esté tu frontend
       credentials: true
-    }
-  });
-
-  io.on('connection', (socket) => {
-    console.log('a user connected');
-  });
-
-server.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  }
 });
+
+socketConnection(io)
+
+const PORT = process.env.PORT || 3000;
+
+// Inicializar base de datos antes de iniciar el servidor
+const startServer = async () => {
+  try {
+    await initDatabase();
+    
+    server.listen(PORT, () => {
+      console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error('Error iniciando el servidor:', error);
+    process.exit(1);
+  }
+};
+
+startServer();
+
+export default io; 

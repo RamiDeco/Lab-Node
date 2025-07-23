@@ -1,38 +1,64 @@
-import connection from '../config/db.js';
+import { DataTypes } from 'sequelize';
+import sequelize from '../config/database.js';
 
-const Shift = {
-  createShift: (user_id) => {
-    return new Promise((resolve, reject) => {
-      connection.query('INSERT INTO shift (id_usuario) VALUES (?)', [user_id], (err, result) => {
-        if (err) {
-          console.error('Error creando el shift:', err);
-          return reject(err);
-        }
-        resolve(result.insertId); // o { id: result.insertId } si prefieres un objeto
-      });
-    });
+const Shift = sequelize.define('Shift', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
   },
-  getAllShifts: () => {
-    return new Promise((resolve, reject) => {
-      connection.query('SELECT * FROM shift', (err, result) => {
-        if (err) {
-          console.error('Error creando el shift:', err);
-          return reject(err);
-        }
-        resolve(result);
-      });
-    });
+  id_usuario: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   },
-  getShiftByUser: (id) => {
-    return new Promise((resolve, reject) => {
-      connection.query('SELECT * FROM shift WHERE id_usuario = ?', [id], (err, result) => {
-        if (err) {
-          console.error('Error obteniendo el shift:', err);
-          return reject(err);
-        }
-        resolve(result);
-      });
+  id_estado: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 1 // Por defecto "pendiente"
+  },
+  created_at: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
+  },
+  updated_at: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
+  }
+}, {
+  tableName: 'shift',
+  timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at'
+});
+
+// Métodos estáticos para mantener la misma API
+Shift.createShift = async (user_id) => {
+  try {
+    const shift = await Shift.create({ id_usuario: user_id });
+    return shift.id;
+  } catch (error) {
+    console.error('Error creando el shift:', error);
+    throw error;
+  }
+};
+
+Shift.getAllShifts = async () => {
+  try {
+    return await Shift.findAll();
+  } catch (error) {
+    console.error('Error obteniendo shifts:', error);
+    throw error;
+  }
+};
+
+Shift.getShiftByUser = async (id) => {
+  try {
+    return await Shift.findAll({
+      where: { id_usuario: id }
     });
+  } catch (error) {
+    console.error('Error obteniendo shift por usuario:', error);
+    throw error;
   }
 };
 
