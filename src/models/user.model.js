@@ -7,6 +7,10 @@ const User = sequelize.define('User', {
     primaryKey: true,
     autoIncrement: true
   },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
   email: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -55,9 +59,13 @@ User.findById = async (id) => {
   }
 };
 
-User.addUser = async (email, hashedPassword) => {
+User.addUser = async (name, email, hashedPassword) => {
   try {
-    const user = await User.create({email: email, password: hashedPassword});
+    const user = await User.create({
+      name: name,
+      email: email,
+      password: hashedPassword
+      });
     return user;
   } catch (err) {
     console.error("Error registrando al usuario", err);

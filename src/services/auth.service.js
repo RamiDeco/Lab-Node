@@ -6,7 +6,7 @@ import User from '../models/user.model.js';
 export const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRES = process.env.JWT_EXPIRES;
 
-export async function registerUser(email, password) {
+export async function registerUser(name, email, password) {
 
   const user = await User.findByEmail(email);
   if (user) {
@@ -14,7 +14,7 @@ export async function registerUser(email, password) {
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
-  const userCreated = await User.addUser(email, hashedPassword);
+  const userCreated = await User.addUser(name, email, hashedPassword);
 
   return userCreated;
 }
@@ -26,7 +26,11 @@ export async function loginUser(email, password) {
   }
   const userId = user.id;
   
-  const payload = { userId };
+  const payload = { 
+    userId: user.id,
+    name: user.name,
+    email: user.email
+  };
   
   const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES });
   

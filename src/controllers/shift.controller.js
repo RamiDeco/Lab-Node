@@ -3,6 +3,7 @@ import { User, TurnoEstado } from '../models/index.js';
 import { socketList } from '../socket.handler.js';
 import io from '../server.js';
 import { shiftQueue } from './startExperiment.controller.js';
+import sequelize from '../config/database.js';
 
 export const createShift = async (req, res) => {
   try {
@@ -183,4 +184,23 @@ export const deleteShift = async (req, res) => {
     console.error('Error deleting shift:', error);
     res.status(400).json({ message: 'Error deleting shift', error: error.message });
   }
+};
+
+// =========================================================
+// TEMPORAL PARA TESTING: BORRAR ANTES DE PRODUCCIÓN 
+export const resetQueue = async (req, res) => {
+    try {
+        console.log(" ALERTA: Iniciando reseteo de la base de datos...");
+        
+        await sequelize.query('SET SQL_SAFE_UPDATES = 0;');
+        await sequelize.query('DELETE FROM temperatures;');
+        await sequelize.query('DELETE FROM shift;');
+        await sequelize.query('SET SQL_SAFE_UPDATES = 1;');
+
+        console.log(" Base de datos reseteada con éxito.");
+        res.status(200).json({ message: "Base de datos reseteada con éxito." });
+    } catch (error) {
+        console.error(' Error al resetear BD:', error);
+        res.status(500).json({ error: "Error interno al resetear la base de datos." });
+    }
 };

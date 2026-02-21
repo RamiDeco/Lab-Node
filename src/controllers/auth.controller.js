@@ -5,9 +5,9 @@ import jwt from 'jsonwebtoken';
 export const UserController = {
   //Registrar usuario y guardarlo en la bd
   register: async (req, res) => {
-    const { email, password } = req.body;
+    const { name, email, password } = req.body;
     try {
-      const user = await registerUser(email, password);
+      const user = await registerUser(name, email, password);
       console.log("Usuario registrado exitosamente:", user.id);
       res.status(201).json({ 
         message: 'Usuario registrado con éxito',

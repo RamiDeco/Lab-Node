@@ -1,7 +1,6 @@
-import { Shift, TurnoEstado } from '../models/index.js';
+import { Shift, TurnoEstado, Temperature } from '../models/index.js';
 import io from '../server.js';
 import { socketList } from '../socket.handler.js';
-
 
 let bandera = false;
 let releEncendido = false;
@@ -166,6 +165,17 @@ const startExp = async (req, res) => {
 
         intervalId = setInterval(async () => {
             data = obtenerTemperatura()
+
+            // --- [NUEVO] GUARDAR EN BASE DE DATOS PARA GRAFANA ---
+            try {
+                await Temperature.create({
+                    value: data.temperatura,
+                    shiftId: shift.id,
+                    timestamp: new Date()
+                });
+            } catch (dbError) {
+                console.error('Error guardando temperatura:', dbError);
+            }
 
             if ((releEncendido && bandera && (data.temperatura >= 46)) || (step >= maxStep)) {
                 // rele.writeSync(1); // Apagar el relé (hardware real)

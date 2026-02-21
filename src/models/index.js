@@ -1,6 +1,7 @@
 import User from './user.model.js';
 import Shift from './shift.model.js';
 import TurnoEstado from './turnoEstado.model.js';
+import Temperature from './temperature.model.js';
 
 // Definir relaciones
 User.hasMany(Shift, {
@@ -24,4 +25,17 @@ TurnoEstado.hasMany(Shift, {
   as: 'shifts'
 });
 
-export { User, Shift, TurnoEstado }; 
+// --- [NUEVO] Relaciones de Turnos y Temperaturas ---
+// "Un Turno tiene muchas mediciones de temperatura"
+Shift.hasMany(Temperature, {
+  foreignKey: 'shiftId',
+  as: 'temperatures'
+});
+
+// Y esto: "Una medición pertenece a un Turno específico"
+Temperature.belongsTo(Shift, {
+  foreignKey: 'shiftId',
+  as: 'shift'
+});
+
+export { User, Shift, TurnoEstado, Temperature }; 
