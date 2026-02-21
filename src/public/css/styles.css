@@ -1,0 +1,206 @@
+:root {
+    --bg-color: #0f172a;
+    --card-bg: #1e293b;
+    --text-color: #f8fafc;
+    --text-muted: #94a3b8;
+    --primary: #3b82f6; 
+    --primary-hover: #2563eb;
+    --secondary: #475569;
+    --success: #10b981;
+    --danger: #ef4444;
+    --border-color: #334155;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    background: var(--bg-color); 
+    color: var(--text-color); 
+    min-height: 100vh;
+    overflow-y: auto; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;      
+    max-width: 450px;
+    height: auto;
+    padding: 2rem;
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border-color);
+    box-sizing: border-box; 
+}
+
+.login-form__title {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--text-color);
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 1.8rem;
+}
+
+.login-form__group {
+    text-align: left;    
+    width: 100%; 
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.login-form__group h2 {
+    text-align: center;
+}
+
+.login-form__input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 6px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.login-form__input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.login-form__button {
+    width: 100%; 
+    height: 45px;
+    border: none;
+    margin-top: 20px;
+    font-weight: bold;
+    background-color: var(--primary);
+    color: var(--text-color);
+    border-radius: 6px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.login-form__button:hover {
+    background-color: var(--primary-hover);
+}
+
+.login-form__input::placeholder { 
+    color: var(--text-muted); 
+    opacity: 1; 
+}
+
+a { 
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: bold;
+}
+a:hover { 
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+/* Mensajes de error */
+.login-form__message {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--danger);
+    height: 0;      
+    opacity: 0;
+    transition: all 0.3s ease;
+    margin-top: 0; 
+    margin-bottom: 0;
+    overflow: hidden;
+}
+
+.login-form__message--active {
+    height: auto;
+    opacity: 1;
+    margin-bottom: 10px; 
+    margin-top: -5px;
+}
+
+.login-form__input--error {
+    border-color: var(--danger) !important;
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1) !important;
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+/* --- MEDIA QUERY PARA CELULARES --- */
+@media (max-width: 480px) {
+    .login-form {
+        max-width: 100%; 
+        width: 100%;
+        height: 100vh;   
+        border-radius: 0;
+        background: var(--bg-color);
+        border: none;
+        padding: 1.5rem; 
+    }
+
+    .login-form__title {
+        margin-bottom: 90px;
+        font-size: 3rem;
+        margin-top: 80px;
+    }
+    
+    .login-form__input, .login-form__button {
+        padding: 14px; 
+        font-size: 1rem;
+        margin-bottom: 40px;
+    }
+
+    .login-form__group{
+        margin-bottom: 10px;
+        font-size: 1.6rem;
+    }
+
+    .login-form__input{
+        font-size: 1.4rem;
+    }
+
+    .login-form__input::placeholder{
+        font-size: 1.4rem;
+    }
+
+    .login-form__button{
+        font-size: 1.6rem;
+        height: 55px;
+    }
+
+    .login-form__footer{
+        margin-top: auto;
+        font-size: 1.5rem;
+    }
+
+    /*Mensajes de error*/
+    .login-form__message {
+        font-size: 1.4rem;
+        display: none;
+    }
+
+    .login-form__message--active {
+        display: block;
+        margin-top: -30px; 
+        margin-bottom: 10px;
+    }
+}

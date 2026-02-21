@@ -4,7 +4,7 @@ import sequelize from './database.js';
 export const initEstados = async () => {
   try {
     // Sincronizar el modelo con la base de datos
-    await TurnoEstado.sync({ force: true }); // force: true recreará la tabla
+    await TurnoEstado.sync({ force: false }); // force: true recreará la tabla
     
     // Crear los estados iniciales
     const estados = [

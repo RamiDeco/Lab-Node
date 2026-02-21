@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/resources/css/styles.css">
+    <script src="/resources/js/login.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body id="body">
+    
+    <form class="login-form">
+        
+        <div class="login-form__header">
+            <h1 class="login-form__title" id="login">Login</h1>
+        </div>
+
+        <div class="login-form__group">
+            
+            <label class="login-form__label"> 
+                <span class="login-form__text" id="labelCorreo">Correo electrónico</span>
+                <input name="email" class="login-form__input" type="email" placeholder="ejemplo@gmail.com" id="mail">
+                <small class="login-form__message" id="msgErrorCorreo"></small>
+            </label>
+
+            <label class="login-form__label">
+                <span class="login-form__text" id="labelContraseña">Contraseña</span>
+                <input name="contraseña" class="login-form__input" type="password" placeholder ="................................." id="contraseña">
+                <small class="login-form__message" id="msgErrorContraseña"></small>
+            </label>
+        </div>
+        
+        <div class="login-form__actions">
+            <button class="login-form__button" id="boton">Iniciar sesión</button>
+        </div>
+
+        <div class="login-form__footer">
+            <p class="login-form__footer-text">¿No tienes cuenta?</p>
+            <a class="login-form__link" href="/registro">Regístrate aquí</a>
+        </div>
+        <!--Proxima posible funcion a implementar-->
+        <!--<div class="login-form__footer">
+            <p class="login-form__footer-text" id="olvido">¿Se ha olvidado la contraseña?</p>
+            <a class="login-form__link" href="">Recuperar contraseña</a>
+        </div> -->
+    </form>
+    
+</body>
+</html>

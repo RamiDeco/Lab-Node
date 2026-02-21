@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Cuenta</title>
+    <link rel="stylesheet" href="/resources/css/styles.css">
+    <script src="/resources/js/registro.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body id="body">
+    <form class="login-form" id="formRegister">
+        <div class="login-form__header">
+            <h1 class="login-form__title">Crear Cuenta</h1>
+        </div>
+
+        <div class="login-form__group">
+            <label class="login-form__label"> 
+                <span class="login-form__text">Nombre completo</span>
+                <input name="name" class="login-form__input" type="text" placeholder="Tu nombre" id="regNombre">
+                <small class="login-form__message" id="msgErrorNombre"></small>
+            </label>
+
+            <label class="login-form__label"> 
+                <span class="login-form__text">Correo electrónico</span>
+                <input name="email" class="login-form__input" type="email" placeholder="ejemplo@gmail.com" id="regEmail">
+                <small class="login-form__message" id="msgErrorCorreo"></small>
+            </label>
+
+            <label class="login-form__label">
+                <span class="login-form__text">Contraseña</span>
+                <input name="password" class="login-form__input" type="password" placeholder="••••••••••••••" id="regPass">
+                <small class="login-form__message" id="msgErrorContraseña"></small>
+            </label>
+        </div>
+        
+        <div class="login-form__actions">
+            <button class="login-form__button" type="submit">Registrarse</button>
+        </div>
+
+        <div class="login-form__footer">
+            <p class="login-form__footer-text">¿Ya tienes cuenta?</p>
+            <a class="login-form__link" href="/login">Inicia sesión</a>
+        </div>
+    </form>
+</body>
+</html>
